@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Heart Trail Animation</title>
+
+    <!-- Style  -->
+    <style>
+      @keyframes animate {
+        0% {
+          transform: translate(-50%, -50%);
+          opacity: 1;
+          filter: hue-rotate(0);
+        }
+        100% {
+          transform: translate(-50%, -6000%);
+          opacity: 0;
+          filter: hue-rotate(720deg);
+        }
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: black;
+        position: relative;
+        margin: 0;
+        overflow: hidden;
+      }
+
+      body span.heart {
+        font-size: 150px;
+        color: red;
+        position: absolute;
+        pointer-events: none;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-shadow: 2px 2px 1px #fff, -2px -2px 1px #fff;
+        animation: animate 6s linear;
+      }
+
+      /* Footer styles */
+      .footer {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-family: Arial, sans-serif;
+        font-size: 1.2rem;
+        color: white;
+        opacity: 0.9;
+        letter-spacing: 0.5px;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+      }
+
+      .footer span {
+        font-size: 1.8rem;
+        color: red;
+        font-weight: bold;
+        margin-top: 8px;
+      }
+
+      @media (max-width: 768px) {
+        .footer {
+          font-size: 1rem;
+          padding: 16px;
+        }
+        .footer span {
+          font-size: 1.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .footer {
+          font-size: 0.9rem;
+          padding: 12px;
+        }
+        .footer span {
+          font-size: 1.3rem;
+        }
+      }
+    </style>
+  </head>
+  <body id="body">
+    <!-- Footer -->
+    <div class="footer">
+      <div style="color: white">Designed and Developed by</div>
+      <span>Mariya Babu</span>
+    </div>
+
+    <!-- Script -->
+    <script>
+      const bdy = document.body;
+      const heart = "&hearts;";
+
+      function createHeart(x, y) {
+        const spn = document.createElement("span");
+        spn.classList.add("heart");
+        spn.innerHTML = heart;
+        const size = Math.random() * 100;
+        spn.style.fontSize = `${size}px`;
+        spn.style.top = `${y}px`;
+        spn.style.left = `${x}px`;
+        bdy.appendChild(spn);
+
+        setTimeout(() => spn.remove(), 3000);
+      }
+
+      bdy.addEventListener("mousemove", function (event) {
+        createHeart(event.clientX, event.clientY);
+      });
+
+      bdy.addEventListener("touchmove", function (event) {
+        const touch = event.touches[0];
+        if (touch) {
+          createHeart(touch.clientX, touch.clientY);
+        }
+      });
+    </script>
+  </body>
+</html>
